@@ -18,7 +18,10 @@ const Job = sequelize.define("job", {
 
     salaryoffered: Sequelize.DECIMAL(20, 2),
 
-    status: Sequelize.INTEGER,
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
 
     pocname: Sequelize.STRING,
 

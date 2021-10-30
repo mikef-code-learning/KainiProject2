@@ -22,24 +22,30 @@ module.exports = function(app) {
                 job: data
             }
             res.render("index", jobObject)
+        }).catch(function(err) {
+            console.log(err)
+            res.status(500).json({error: 'Failed to get jobs.  Please try again later.'})
         });
     });
 
     app.post("/api/jobs/create" , function(req, res){
-        Job.create({
-            companyname: req.body.companyname,
-            companyaddress: req.body.companyaddress, 
-            position: req.body.position, 
-            targetsalary: req.body.targetsalary,
-            salaryoffered: req.body.salaryoffered,
-            pocname: req.body.pocname,
-            pocemailaddress: req.body.pocemailaddress,
-            pocphonenumber: req.body.pocphonenumber,
-            userid: req.body.userid,
-            archived: false
-        }).then(function(result){
-            res.json(result)
-        });
+            Job.create({
+                companyname: req.body.companyname,
+                companyaddress: req.body.companyaddress, 
+                position: req.body.position, 
+                targetsalary: req.body.targetsalary,
+                salaryoffered: req.body.salaryoffered,
+                pocname: req.body.pocname,
+                pocemailaddress: req.body.pocemailaddress,
+                pocphonenumber: req.body.pocphonenumber,
+                userid: req.body.userid,
+                status: req.body.status,
+                archived: false
+            }).then(function(result){
+                res.json(result)
+            }).catch(function(err) {
+                res.status(500).json({error: 'Failed to create job.  Please double check your form has been filled out correctly and try again.'})
+            });
     });
 
     app.put("/api/jobs/update" , function(req, res){
@@ -54,6 +60,9 @@ module.exports = function(app) {
         })
         .then(function(data){
             res.json(data);
+        }).catch(function(err) {
+            console.log(err)
+            res.status(500).json({error: 'Failed to update job. Please try again later.'})
         });
     });
 
@@ -67,7 +76,10 @@ module.exports = function(app) {
         })
         .then(function(data){
             res.json(data);
-        });
+        }).catch(function(err) {
+            console.log(err)
+            res.status(500).json({error: 'Failed to archive job. Please try again later.'})
+        });;
     });
 
 };

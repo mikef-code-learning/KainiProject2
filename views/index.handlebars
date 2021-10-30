@@ -1,2 +1,71 @@
 <div class = "container-lg" id = "main-body">
+    <br>
+    <h1>Jobs</h1>
+    <br>
+    <hr>
+    <form id="job-form" class="row g-3">
+        <div class="col-md-6">
+            <label for="companyname" class="form-label">Company Name</label>
+            <input type="text" class="form-control" id="companyname">
+            <span class="input-required">* Required</span>
+        </div>
+        <div class="col-md-6">
+            <label for="position" class="form-label">Position</label>
+            <input type="text" class="form-control" id="position">
+            <span class="input-required">* Required</span>
+        </div>
+        <div class="col-12">
+            <label for="_compAddress" class="form-label">Company Address</label>
+            <input type="text" class="form-control company-address" id="_compAddress" placeholder="1234 Main St">
+        </div>
+        <div class="col-12">
+            <label for="_compAddress2" class="form-label">Address 2</label>
+            <input type="text" class="form-control company-address" id="_compAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="col-md-6">
+            <label for="_compCity" class="form-label">City</label>
+            <input type="text" class="form-control company-address" id="_compCity" placeholder="Paradise City">
+        </div>
+        <div class="col-md-4">
+            <label for="_compState" class="form-label">State</label>
+            <input type="text" class="form-control company-address" id="_compState" placeholder="GA">
+        </div>
+        <div class="col-md-2">
+            <label for="_compZip" class="form-label">Zip</label>
+            <input type="text" class="form-control company-address" id="_compZip" placeholder="11125">
+        </div>
+        <div class="col-md-6">
+            <label for="targetsalary" class="form-label">Target Salary</label>
+            <input type="number" class="form-control" id="targetsalary" placeholder="$50000">
+        </div>
+        <div class="col-md-6">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" class="form-control" id="status">
+                <option value="disabled" disabled>Select A Status</option>
+                <option value="0">Not Yet Applied</option>
+                <option value="1">Applied</option>
+                <option value="2">Interview Scheduled</option>
+                <option value="3">Interviews Complete</option>
+                <option value="4">Awaiting Offer</option>
+                <option value="5">Offer Made</option>
+            </select>
+            <span class="input-required">* Required</span>
+        </div>
+        <div class="col-md-4">
+            <label for="pocname" class="form-label">Point of Contact Name</label>
+            <input type="text" class="form-control" id="pocname">
+        </div>
+        <div class="col-md-4">
+            <label for="pocemailaddress" class="form-label">Point of Contact Email</label>
+            <input type="email" class="form-control" id="pocemailaddress">
+        </div>
+            <div class="col-md-4">
+            <label for="pocphonenumber" class="form-label">Point of Contact Phone #</label>
+            <input type="number" class="form-control" id="pocphonenumber">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" id = "addjob">Add Job</button>
+        </div>
+    </form>
+
 </div>
