@@ -39,6 +39,7 @@ const Job = sequelize.define("job", {
     archived: Sequelize.BOOLEAN
 });
 
-Job.sync({force: true});
+// Job.sync({force: true});
+Job.sync();
 
 module.exports = Job;
