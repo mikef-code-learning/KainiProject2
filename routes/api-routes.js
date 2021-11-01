@@ -1,6 +1,6 @@
 let Account = require("../models/account.js");
-let Job = require("../models/job.js")
-
+let Job = require("../models/job.js");
+let passport = require('passport');
 
 module.exports = function(app) {
     // app.post("/api/users/create" , function(req, res){
@@ -27,6 +27,8 @@ module.exports = function(app) {
             res.status(500).json({error: 'Failed to get jobs.  Please try again later.'})
         });
     });
+
+    app.post('/api/account/login', passport.authenticate('local', { failureRedirect: '/' }))
 
     app.post("/api/jobs/create" , function(req, res){
             Job.create({
