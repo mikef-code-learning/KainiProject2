@@ -44,6 +44,8 @@ $(document).on('click', '#addjob', function(e){
         url: `/api/jobs/create`,
         type: 'POST',
         data: newJobData
+    }).done(function(response) {
+        $('#job-form').trigger('reset');
     }).fail(function(response) {
         alert(response.responseJSON.error);
     })

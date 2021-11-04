@@ -1,3 +1,32 @@
-<div class = "container-lg" id = "main-body">
-    <h2>Login Placeholder...</h2>
-</div>
+<div class = "container-sm " id = "main-body">
+    <br>
+    <h1>Welcome!</h1>
+    <br>
+    <hr>
+    <form class="userlogin">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <label for="emailaddress" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="emailaddress">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="email" class="form-control" id="exampleInputEmail1">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-2">
+                <a href="/api/account/create" class="create-account">Create Account</a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#" class="reset-password">Reset Passowrd</a>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                <button class="btn btn-primary" id = "login">Login</button>
+            </div>
+        </div>
+    </form>
