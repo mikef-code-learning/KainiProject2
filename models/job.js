@@ -1,5 +1,6 @@
 let Sequelize = require("sequelize");
 let sequelize = require("../config/connection.js");
+let Account = require("./account.js");
 
 const Job = sequelize.define("job", {
     companyname: {
@@ -34,7 +35,10 @@ const Job = sequelize.define("job", {
 
     pocphonenumber: Sequelize.STRING,
 
-    userid: Sequelize.INTEGER,
+    accountid: { 
+        type:Sequelize.INTEGER, 
+        allowNull: false
+    },
 
     archived: Sequelize.BOOLEAN
 });
