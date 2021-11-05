@@ -7,6 +7,8 @@ module.exports = function(app) {
         for (let col in req.body) {
             createObj[`${col}`] = req.body[col];
         }
+        console.log(createObj);
+        createObj.accountid = 1;
         Job.create(createObj)
         .then(function(result){
             res.json(result)

@@ -1,6 +1,6 @@
 module.exports = function(app) {
     app.get("/" , function(req, res){
-        res.render("login");
+        res.render("index");
     });
 
     app.get('/api/test/success', function(req, res) {
