@@ -5,10 +5,13 @@ $(document).ready(function() {
         focus: true
     })
     
+    // show the new job modal
     $("body").on('click', '#newjobmodalbtn', function(e){
+        e.preventDefault();
         jobFormModal.show();
     });
 
+    // add a new job after form filled out, and close the new job modal
     $("body").on('click', '#addjob', function(e){
         e.preventDefault();
         
