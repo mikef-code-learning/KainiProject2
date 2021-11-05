@@ -1,7 +1,6 @@
 let Sequelize = require("sequelize");
 let sequelize = require("../config/connection.js");
 let Job = require("./job.js");
-const crypto = require('crypto');
 
 const Account = sequelize.define("account", {
     firstname: {
