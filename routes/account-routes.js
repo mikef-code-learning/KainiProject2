@@ -53,9 +53,9 @@ module.exports = function(app) {
             } else {
                 req.login(user, function(err) {
                     if (err) {
-                        return res.json({ status: 'ok', message: 'Login failed.' });
+                        return res.json({ status: 'error', message: 'Login failed.' });
                     } else {
-                        return res.render('index');
+                        return res.json({ status: 'ok', message: 'Login successful.' });
                     }
                 });
             }

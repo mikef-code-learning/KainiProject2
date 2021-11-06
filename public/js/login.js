@@ -40,7 +40,6 @@ $(document).ready(function(){
 
     // login event
     $("body").on('click', '#accountlogin', function(e){
-        console.log('logging in...');
         e.preventDefault();
         const loginData = {
             emailaddress: $('#emailaddress').val().trim(),
@@ -50,6 +49,12 @@ $(document).ready(function(){
             url: '/api/account/login',
             type: 'POST',
             data: loginData
+        }).done(function(resp){
+            if (resp.status === 'ok') {
+                location.reload();
+            } else {
+                alert('Login failed.  Please try again.');
+            }
         });
     });
 });

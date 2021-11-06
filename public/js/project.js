@@ -6,15 +6,24 @@ $(document).ready(function() {
     })
 
     $('#joblist').DataTable({
-        "ajax": "data/objects.txt",
+        "ajax": "/api/jobs/getall",
         "columns": [
-            { "data": "name" },
+            { "data": "companyname" },
             { "data": "position" },
-            { "data": "office" },
-            { "data": "extn" },
-            { "data": "start_date" },
-            { "data": "salary" }
+            { "data": "status" },
+            { "data": "targetsalary" }
         ]
+    });
+
+    $("body").on('click', '#testjobs', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/api/jobs/getall',
+            type: 'GET'
+        }).done(function(resp){
+            console.log('test complete. resp:');
+            console.log(resp);
+        });
     });
     
     $("body").on('click', '#logoutbtn', function(e){
@@ -81,6 +90,7 @@ $(document).ready(function() {
             if (response.id) {
                 jobFormModal.hide();
                 $('#job-form').trigger('reset');
+                location.reload();
             }
         }).fail(function(response) {
             alert(response.responseJSON.error);

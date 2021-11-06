@@ -3,15 +3,15 @@ let Job = require("../models/job.js");
 module.exports = function(app) {
 
     app.get('/api/jobs/getall', function(req, res) {
-        console.log('inside /api/job/getall.  req.user:')
-        console.log(req.user)
-        console.log('~~~~~~~~~~~~~~~~~~~~~')
         Job.findAll({
             where: {
-                accountid: req.user.id
+                accountid: req.user.dataValues.id
             }
         }).then(function(data){
-            res.json(data);
+            let responseObj = {
+                data: data
+            }
+            res.json(responseObj);
         })
     });
 
@@ -21,7 +21,7 @@ module.exports = function(app) {
             for (let col in req.body) {
                 createObj[`${col}`] = req.body[col];
             }
-            createObj.accountid = 1;
+            createObj.accountid = req.user.dataValues.id;
             console.log(createObj);
             Job.create(createObj)
             .then(function(result){
@@ -32,7 +32,7 @@ module.exports = function(app) {
                 res.status(500).json({error: 'Failed to create job.  Please double check your form has been filled out correctly and try again.'});
             });
         } else {
-            res.render('login');
+            res.status(401);
         }
     });
 
@@ -54,7 +54,7 @@ module.exports = function(app) {
                 res.status(500).json({error: 'Failed to update job. Please try again later.'});
             });
         } else {
-            res.render('login');
+            res.status(401);
         }
     });
 
@@ -74,7 +74,7 @@ module.exports = function(app) {
                 res.status(500).json({error: 'Failed to archive job. Please try again later.'});
             });
         } else {
-            res.render('login');
+            res.status(401);
         }
     });
 };
