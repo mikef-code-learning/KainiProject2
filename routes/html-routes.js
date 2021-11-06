@@ -1,7 +1,6 @@
 module.exports = function(app) {
     app.get("/" , function(req, res){
-        console.log(req.isAuthenticated());
-        if (req.user) {
+        if (req.isAuthenticated()) {
             res.render("index");
         } else {
             res.render("login");

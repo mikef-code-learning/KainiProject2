@@ -1,35 +1,7 @@
-let Account = require("../models/account.js");
-let Job = require("../models/job.js");
-let passport = require('passport');
-let crypto = require('crypto');
-let LocalStrategy = require('passport-local').Strategy;
-
-passport.use(new LocalStrategy({
-        usernameField: 'emailaddress',
-        passwordField: 'password'
-    },
-    async function(username, password, done) {
-        console.log('executing LocalStrategy.');
-        console.log(`Username: ${username}`);
-        console.log(`Password: ${password}`);
-        var user = await Account.findOne({
-            where: {
-                emailaddress: username
-            }
-        });
-        if (!user) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        
-        const userPassword = crypto.pbkdf2Sync(password, user.dataValues.salt, 10000, 64, 'sha512').toString('base64');
-
-        if (userPassword !== user.dataValues.password) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-
-        return done(null, user);
-    }
-));
+const Account = require("../models/account.js");
+const Job = require("../models/job.js");
+const passport = require('passport');
+const crypto = require('crypto');
 
 module.exports = function(app) {
     app.post("/api/account/create" , async function(req, res, next) {
@@ -45,12 +17,12 @@ module.exports = function(app) {
         
         try {
             var email = req.body.emailaddress.toLowerCase();
-            // var emailExists = await Account.findOne({
-            //     where: {
-            //         emailaddress: email
-            //     }
-            // });
-            // if (!emailExists) {
+            var emailExists = await Account.findOne({
+                where: {
+                    emailaddress: email
+                }
+            });
+            if (!emailExists) {
                 var user = await Account.create({
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
@@ -58,12 +30,13 @@ module.exports = function(app) {
                     password: password,
                     salt: salt
                 });
-            // }
-            if (user) {
-                res.json({status: 'OK', message: 'Account created successfully! Please log in.'});
+                if (user) {
+                    return res.json({status: 'ok', message: 'Account created successfully! Please log in.'});
+                }
             } else {
-
+                return res.json({status: 'ok', message: 'There was an error creating your account.  Check your email and password, make sure an account does not already exist with this email address, and try again.'});
             }
+
         } catch (err) {
             console.log(err);
             return res.json({status: 'error', message: err.errors[0].message});
@@ -77,10 +50,15 @@ module.exports = function(app) {
             }
             if (!user) {
                 return res.json({status: 'error', message: info.message});
+            } else {
+                req.login(user, function(err) {
+                    if (err) {
+                        return res.json({ status: 'ok', message: 'Login failed.' });
+                    } else {
+                        return res.render('index');
+                    }
+                });
             }
-            user.getJobs().then(function(jobs) {
-                return res.redirect('/');
-            });
         })(req, res, next);
     });
 
