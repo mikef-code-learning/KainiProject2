@@ -79,8 +79,7 @@ module.exports = function(app) {
                 return res.json({status: 'error', message: info.message});
             }
             user.getJobs().then(function(jobs) {
-                console.log(jobs);
-                return res.redirect('/api/test/success');
+                return res.redirect('/');
             });
         })(req, res, next);
     });

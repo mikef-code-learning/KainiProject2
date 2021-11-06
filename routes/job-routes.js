@@ -7,13 +7,14 @@ module.exports = function(app) {
         for (let col in req.body) {
             createObj[`${col}`] = req.body[col];
         }
-        console.log(createObj);
         createObj.accountid = 1;
+        console.log(createObj);
         Job.create(createObj)
         .then(function(result){
             res.json(result)
         })
         .catch(function(err) {
+            console.log(err);
             res.status(500).json({error: 'Failed to create job.  Please double check your form has been filled out correctly and try again.'})
         });
     });
