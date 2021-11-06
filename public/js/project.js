@@ -4,6 +4,18 @@ $(document).ready(function() {
         keyboard: false,
         focus: true
     })
+
+    $('#joblist').DataTable({
+        "ajax": "data/objects.txt",
+        "columns": [
+            { "data": "name" },
+            { "data": "position" },
+            { "data": "office" },
+            { "data": "extn" },
+            { "data": "start_date" },
+            { "data": "salary" }
+        ]
+    });
     
     // show the new job modal
     $("body").on('click', '#newjobmodalbtn', function(e){
