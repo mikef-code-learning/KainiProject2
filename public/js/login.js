@@ -10,5 +10,10 @@ $("body").on('click', '#accountlogin', function(e){
         url: '/api/account/login',
         type: 'POST',
         data: loginData
+    }).done(function(resp) {
+        console.log('login complete!');
+        console.log(resp)
+        console.log('~~~~~~~~~~~~~~~');
+        location.reload();
     });
 });

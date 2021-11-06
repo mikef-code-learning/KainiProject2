@@ -5,6 +5,16 @@ $(document).ready(function() {
         focus: true
     })
     
+    $("body").on('click', '#logoutbtn', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/api/account/logout',
+            type: 'GET'
+        }).done(function(resp){
+            location.reload();
+        });
+    });
+
     // show the new job modal
     $("body").on('click', '#newjobmodalbtn', function(e){
         e.preventDefault();
