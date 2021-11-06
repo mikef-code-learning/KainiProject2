@@ -2,6 +2,19 @@ let Job = require("../models/job.js");
 
 module.exports = function(app) {
 
+    app.get('/api/jobs/getall', function(req, res) {
+        console.log('inside /api/job/getall.  req.user:')
+        console.log(req.user)
+        console.log('~~~~~~~~~~~~~~~~~~~~~')
+        Job.findAll({
+            where: {
+                accountid: req.user.id
+            }
+        }).then(function(data){
+            res.json(data);
+        })
+    });
+
     app.post("/api/jobs/create" , function(req, res){
         if (req.isAuthenticated()) {
             let createObj = {};
