@@ -15,6 +15,21 @@ module.exports = function(app) {
         })
     });
 
+    app.get('/api/jobs/get/:id', function(req, res){
+        if(req.isAuthenticated()) {
+            Job.findOne({
+                where: {
+                    id: req.params.id,
+                    accountid: req.user.dataValues.id
+                }
+            }).then(function(data){
+                res.json(data);
+            })
+        }else{
+            res.status(401);
+        }
+    })
+
     app.post("/api/jobs/create" , function(req, res){
         if (req.isAuthenticated()) {
             let createObj = {};
@@ -36,7 +51,7 @@ module.exports = function(app) {
         }
     });
 
-    app.put("/api/jobs/update" , function(req, res){
+    app.put("/api/jobs/update/:id" , function(req, res){
         if (req.isAuthenticated()) {
             let updateObj = {};
             for (let col in req.body) {
@@ -58,7 +73,7 @@ module.exports = function(app) {
         }
     });
 
-    app.put("/api/jobs/archive" , function(req, res){
+    app.put("/api/jobs/archive/:id" , function(req, res){
         if (req.isAuthenticated()) {
             Job.update({
                 archived: true
