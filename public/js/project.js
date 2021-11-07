@@ -46,17 +46,6 @@ $(document).ready(function() {
             }
         ]
     });
-
-    $("body").on('click', '#testjobs', function(e){
-        e.preventDefault();
-        $.ajax({
-            url: '/api/jobs/getall',
-            type: 'GET'
-        }).done(function(resp){
-            console.log('test complete. resp:');
-            console.log(resp);
-        });
-    });
     
     $("body").on('click', '#logoutbtn', function(e){
         e.preventDefault();
@@ -76,7 +65,6 @@ $(document).ready(function() {
             url: '/api/jobs/get/' + id,
             type: 'GET',
         }).then(function(resp){
-            console.log(resp);
             $("#newjobmodalLabel").text('Edit Job');
             $("#companyname").val(resp.companyname);
             $("#position").val(resp.position);
