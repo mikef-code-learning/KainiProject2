@@ -1,5 +1,8 @@
 $(document).ready(function(){
-    const accountFormModal = new bootstrap.Modal(document.getElementById('createAccountModal'), {
+
+    let accountFormModalElement = document.getElementById('createAccountModal');
+
+    const accountFormModal = new bootstrap.Modal(accountFormModalElement, {
         backdrop: 'static',
         keyboard: false,
         focus: true
@@ -28,7 +31,6 @@ $(document).ready(function(){
         }).done(function(resp){
             if (resp.status =="OK"){
                 accountFormModal.hide();
-                $(".CreateAccount").trigger('reset'); 
                 alert(resp.message);
             }else{
                 alert("Fail to create account, please check the form and try again!");
@@ -57,4 +59,11 @@ $(document).ready(function(){
             }
         });
     });
+
+    accountFormModalElement.addEventListener('hidden.bs.modal', function(e){
+        e.preventDefault();
+        $(".CreateAccount").trigger('reset'); 
+        location.reload();
+    })
+
 });
