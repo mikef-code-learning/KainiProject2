@@ -31,6 +31,26 @@ $(document).ready(function() {
         }
     }
 
+    function disableJobInputs() {
+        for (var i = 0; i < jobInputs.length; i++) {
+            $(jobInputs[i]).attr('disabled', true);
+        }
+        $("#status").attr('disabled', true);
+        $("#closebutton").attr('disabled', true);
+        $(".btn-close").attr('disabled', true);
+        $(".submit-button").attr('disabled', true);
+    }
+
+    function enableJobInputs() {
+        for (var i = 0; i < jobInputs.length; i++) {
+            jobInputs[i].attr('disabled', false);
+        }
+        $("#status").attr('disabled', false);
+        $("#closebutton").attr('disabled', false);
+        $(".btn-close").attr('disabled', false);
+        $(".submit-button").attr('disabled', false);
+    }
+
     $('#joblist').DataTable({
         "ajax": "/api/jobs/getall",
         "columns": [
@@ -101,6 +121,7 @@ $(document).ready(function() {
         e.preventDefault();
         var id = $(this).data("id");
         id = parseInt(id);
+        disableJobInputs();
         parseJobData();
         $.ajax({
             url: '/api/jobs/update/' + id,
@@ -108,12 +129,15 @@ $(document).ready(function() {
             data: jobData
         }).done(function(resp) {
             if (resp.length > 0) {
+                enableJobInputs();
                 location.reload();
             } else {
                 alert('There was an error updating your job.  Please try again later.');
+                enableJobInputs();
             }
         }).fail(function(err) {
             alert('There was an error updating your job.  Please try again later.');
+            enableJobInputs();
             location.reload();
         })
     });
@@ -154,7 +178,7 @@ $(document).ready(function() {
             jobData.salaryoffered = updatedNum;
         }
         jobData.archived = false;
-    
+        disableJobInputs();
         $.ajax({
             url: `/api/jobs/create`,
             type: 'POST',
@@ -163,9 +187,11 @@ $(document).ready(function() {
             if (response.id) {
                 jobFormModal.hide();
                 jobData = {};
+                enableJobInputs();
             }
         }).fail(function(response) {
             alert(response.responseJSON.error);
+            enableJobInputs();
         })
     });
 
