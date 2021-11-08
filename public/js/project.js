@@ -14,11 +14,19 @@ $(document).ready(function() {
         backdrop: 'static',
         keyboard: false,
         focus: true
-    })
+    });
 
     const jobInputs = $("#job-form").find($('input'));
 
     let jobData = {};
+
+    let confirmArchiveModalElement = document.getElementById('confirm-archive');
+
+    const confirmArchiveModal = new bootstrap.Modal(confirmArchiveModalElement, {
+        backdrop: 'static',
+        keyboard: false,
+        focus: true
+    });
 
     function parseJobData() {
         for (let i = 0; i < jobInputs.length; i++) {
@@ -26,7 +34,7 @@ $(document).ready(function() {
             const inputValue = $(jobInputs[i]).val().trim();
             // if (idString.charAt(0) != '_' && inputValue != '') {
             if (inputValue != '') {
-                jobData[idString] = inputValue
+                jobData[idString] = inputValue;
             }
         }
     }
@@ -51,6 +59,7 @@ $(document).ready(function() {
         $(".submit-button").attr('disabled', false);
     }
 
+    // initialize and configure the DataTable
     $('#joblist').DataTable({
         "ajax": "/api/jobs/getall",
         "columns": [
@@ -85,6 +94,7 @@ $(document).ready(function() {
         ]
     });
     
+    // log out of the currently authenticated account
     $("body").on('click', '#logoutbtn', function(e){
         e.preventDefault();
         $.ajax({
@@ -115,9 +125,9 @@ $(document).ready(function() {
             $('#addjob').text('Update');
             $('#addjob').attr('data-id', id);
             $('#addjob').attr('id', 'updatejob');
-        })
+        });
         jobFormModal.show();
-    })
+    });
 
     // send updated job details to job api
     $("body").on("click", "#updatejob", function(e){
@@ -142,7 +152,7 @@ $(document).ready(function() {
             alert('There was an error updating your job.  Please try again later.');
             enableJobInputs();
             location.reload();
-        })
+        });
     });
 
     // show the new job modal
@@ -195,7 +205,39 @@ $(document).ready(function() {
         }).fail(function(response) {
             alert(response.responseJSON.error);
             enableJobInputs();
-        })
+        });
+    });
+
+    // show the job archive confirmation modal
+    $("body").on('click', '.archivejob', function(e){
+        e.preventDefault();
+        const id = $(this).data('id');
+        $('#confirm-archive-btn').attr('data-id', id);
+        confirmArchiveModal.show();
+    });
+
+    // if confirmed, archive the job
+    $("body").on('click', '#confirm-archive-btn', function(e){
+        e.preventDefault();
+        const id = $(this).data('id');
+        $.ajax({
+            url: '/api/jobs/archive/' + id,
+            type: 'PUT',
+            data: {
+                id: id
+            }
+        }).done(function(resp) {
+            console.log(resp);
+            if (resp.length < 1) {
+                alert('Failed to archive job.  Please try again later.');
+                location.reload();
+            } else {
+                location.reload();
+            }
+        }).fail(function(resp) {
+            alert('Failed to archive job.  Please try again later.');
+            location.reload();
+        });
     });
 
     // refresh page when job modal is hidden
@@ -203,5 +245,5 @@ $(document).ready(function() {
         e.preventDefault();
         $('#job-form').trigger('reset');
         location.reload();
-    })
+    });
 });

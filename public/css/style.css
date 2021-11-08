@@ -15,6 +15,10 @@ hr{
     color: rgb(9, 96, 14);
 }
 
+.fa-pencil, .fa-archive{
+    cursor:pointer;
+}
+
 #navbarHeader {
     font-size: 25px;
     margin-left: 7%;
@@ -25,4 +29,3 @@ hr{
     margin-right: 7%;
     color:whitesmoke;
 }
-

@@ -7,7 +7,7 @@
 <hr>
 
 <div class = "container-lg" id = "main-body">
-    <!-- Modal -->
+    <!-- Job Modal -->
     <div class="modal fade" id="newjobmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newjobmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -85,6 +85,7 @@
             </div>
         </div>
     </div>
+    
     <div class="Jobs-display">
         <div class="d-grid gap-2 col-2 mx-auto">
             <div class="add new job">
@@ -118,6 +119,46 @@
                 </tfoot> --}}
             </table>
         </div>
+
+    {{!-- archive confirmation modal --}}
+    <div class="modal fade" id="confirm-archive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" role="dialog" aria-labelledby="confirm-archive-label" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Are you sure you want to Archive this job?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger btn-ok" id="confirm-archive-btn">Archive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- DataTable --}}
+    <div>
+        <table id="joblist" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Position</th>
+                    <th>Status</th>
+                    <th>Target Salary</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            {{!-- <tfoot>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Position</th>
+                    <th>Status</th>
+                    <th>Target Salary</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot> --}}
+    </table>
     </div>
 </div>
 
