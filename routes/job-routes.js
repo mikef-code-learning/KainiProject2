@@ -5,14 +5,15 @@ module.exports = function(app) {
     app.get('/api/jobs/getall', function(req, res) {
         Job.findAll({
             where: {
-                accountid: req.user.dataValues.id
+                accountid: req.user.dataValues.id,
+                archived: false
             }
         }).then(function(data){
             let responseObj = {
                 data: data
-            }
+            };
             res.json(responseObj);
-        })
+        });
     });
 
     app.post("/api/jobs/create" , function(req, res){
