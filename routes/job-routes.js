@@ -23,7 +23,7 @@ module.exports = function(app) {
                 createObj[`${col}`] = req.body[col];
             }
             createObj.accountid = req.user.dataValues.id;
-            console.log(createObj);
+            createObj.archived = false;
             Job.create(createObj)
             .then(function(result){
                 res.json(result);
