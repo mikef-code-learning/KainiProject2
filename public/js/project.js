@@ -16,6 +16,21 @@ $(document).ready(function() {
         focus: true
     })
 
+    const jobInputs = $("#job-form").find($('input'));
+
+    let jobData = {};
+
+    function parseJobData() {
+        for (let i = 0; i < jobInputs.length; i++) {
+            const idString = $(jobInputs[i]).attr('id');
+            const inputValue = $(jobInputs[i]).val().trim();
+            // if (idString.charAt(0) != '_' && inputValue != '') {
+            if (inputValue != '') {
+                jobData[idString] = inputValue
+            }
+        }
+    }
+
     $('#joblist').DataTable({
         "ajax": "/api/jobs/getall",
         "columns": [
@@ -64,7 +79,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/jobs/get/' + id,
             type: 'GET',
-        }).then(function(resp){
+        }).done(function(resp){
             $("#newjobmodalLabel").text('Edit Job');
             $("#companyname").val(resp.companyname);
             $("#position").val(resp.position);
@@ -75,10 +90,33 @@ $(document).ready(function() {
             $("#pocemailaddress").val(resp.pocemailaddress);
             $("#pocphonenumber").val(resp.pocphonenumber);
             $('#addjob').text('Update');
+            $('#addjob').attr('data-id', id);
             $('#addjob').attr('id', 'updatejob');
         })
         jobFormModal.show();
     })
+
+    // send updated job details to job api
+    $("body").on("click", "#updatejob", function(e){
+        e.preventDefault();
+        var id = $(this).data("id");
+        id = parseInt(id);
+        parseJobData();
+        $.ajax({
+            url: '/api/jobs/update/' + id,
+            type: 'PUT',
+            data: jobData
+        }).done(function(resp) {
+            if (resp.length > 0) {
+                location.reload();
+            } else {
+                alert('There was an error updating your job.  Please try again later.');
+            }
+        }).fail(function(err) {
+            alert('There was an error updating your job.  Please try again later.');
+            location.reload();
+        })
+    });
 
     // show the new job modal
     $("body").on('click', '#newjobmodalbtn', function(e){
@@ -89,18 +127,7 @@ $(document).ready(function() {
     // add a new job after form filled out, and close the new job modal
     $("body").on('click', '#addjob', function(e){
         e.preventDefault();
-        
-        const jobInputs = $("#job-form").find($('input'));
-        let newJobData = {};
-        for (let i = 0; i < jobInputs.length; i++) {
-            const idString = $(jobInputs[i]).attr('id');
-            const inputValue = $(jobInputs[i]).val().trim();
-            // if (idString.charAt(0) != '_' && inputValue != '') {
-            if (inputValue != '') {
-                newJobData[idString] = inputValue
-            }
-        }
-        
+        parseJobData();
         // const addressFields = $(".company-address");
         // let addressString = '';
         // for (let j = 0; j < addressFields.length; j++) {
@@ -115,26 +142,27 @@ $(document).ready(function() {
         //     }
         // }
         // if (addressString.length > 0) {
-        //     newJobData.companyaddress = addressString.trim();
+        //     jobData.companyaddress = addressString.trim();
         // };
-        newJobData.status = parseInt($("#status").val())
-        if (newJobData.targetsalary != undefined) {
-            let updatedNum = parseFloat(newJobData.targetsalary);
-            newJobData.targetsalary = updatedNum;
+        jobData.status = parseInt($("#status").val())
+        if (jobData.targetsalary != undefined) {
+            let updatedNum = parseFloat(jobData.targetsalary);
+            jobData.targetsalary = updatedNum;
         }
-        if (newJobData.salaryoffered != undefined) {
-            let updatedNum = parseFloat(newJobData.salaryoffered);
-            newJobData.salaryoffered = updatedNum;
+        if (jobData.salaryoffered != undefined) {
+            let updatedNum = parseFloat(jobData.salaryoffered);
+            jobData.salaryoffered = updatedNum;
         }
-        newJobData.archived = false;
+        jobData.archived = false;
     
         $.ajax({
             url: `/api/jobs/create`,
             type: 'POST',
-            data: newJobData
+            data: jobData
         }).done(function(response) {
             if (response.id) {
                 jobFormModal.hide();
+                jobData = {};
             }
         }).fail(function(response) {
             alert(response.responseJSON.error);

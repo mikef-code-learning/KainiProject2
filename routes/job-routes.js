@@ -15,21 +15,6 @@ module.exports = function(app) {
         })
     });
 
-    app.get('/api/jobs/get/:id', function(req, res){
-        if(req.isAuthenticated()) {
-            Job.findOne({
-                where: {
-                    id: req.params.id,
-                    accountid: req.user.dataValues.id
-                }
-            }).then(function(data){
-                res.json(data);
-            })
-        }else{
-            res.status(401);
-        }
-    })
-
     app.post("/api/jobs/create" , function(req, res){
         if (req.isAuthenticated()) {
             let createObj = {};
@@ -51,6 +36,21 @@ module.exports = function(app) {
         }
     });
 
+    app.get('/api/jobs/get/:id', function(req, res){
+        if(req.isAuthenticated()) {
+            Job.findOne({
+                where: {
+                    id: req.params.id,
+                    accountid: req.user.dataValues.id
+                }
+            }).then(function(data){
+                res.json(data);
+            })
+        }else{
+            res.status(401);
+        }
+    })
+
     app.put("/api/jobs/update/:id" , function(req, res){
         if (req.isAuthenticated()) {
             let updateObj = {};
@@ -59,7 +59,7 @@ module.exports = function(app) {
             };
             Job.update(updateObj, {
                 where: {
-                    id: req.body.id
+                    id: req.params.id
                 }
             })
             .then(function(data){
