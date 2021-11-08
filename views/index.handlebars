@@ -1,16 +1,12 @@
-<div class = "container-lg" id = "main-body">
-    <br>
-    <h1>Jobs</h1>
-    <br>
-    <button class="btn btn-danger" id="logoutbtn">Logout</button>
-    <hr>
-    <div class="d-grid gap-2">
-        <button type="button" class="btn btn-primary" id="newjobmodalbtn">
-            Add New Job
-        </button>
+<nav class="navbar navbar-dark bg-primary"id="navbar-container">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1" id="navbarHeader">Jobs</span>
+        <button class="btn btn-link" id="logoutbtn">Logout</button>
     </div>
+</nav>
+<hr>
 
-
+<div class = "container-lg" id = "main-body">
     <!-- Job Modal -->
     <div class="modal fade" id="newjobmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newjobmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -89,6 +85,40 @@
             </div>
         </div>
     </div>
+    
+    <div class="Jobs-display">
+        <div class="d-grid gap-2 col-2 mx-auto">
+            <div class="add new job">
+                <button type="button" class="btn btn-success" id="newjobmodalbtn">
+                    Create New Job
+                </button>
+            </div>
+        </div>
+        <br>
+        <div>
+            <table id="joblist" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Target Salary</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Target Salary</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot> --}}
+            </table>
+        </div>
 
     {{!-- archive confirmation modal --}}
     <div class="modal fade" id="confirm-archive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" role="dialog" aria-labelledby="confirm-archive-label" aria-hidden="true">

@@ -1,5 +1,13 @@
 body{
-    background-color: whitesmoke
+    background-color: whitesmoke;
+}
+
+.main-body{
+    background-color: whitesmoke;
+}
+
+hr{
+    background-color: whitesmoke;
 }
 
 .input-required {
@@ -9,4 +17,15 @@ body{
 
 .fa-pencil, .fa-archive{
     cursor:pointer;
+}
+
+#navbarHeader {
+    font-size: 25px;
+    margin-left: 7%;
+    font-family:Georgia;
+}
+
+#logoutbtn{
+    margin-right: 7%;
+    color:whitesmoke;
 }
