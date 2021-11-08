@@ -62,7 +62,10 @@ $(document).ready(function() {
                     return `${statusList[data]}`
                 }
             },
-            { "data": "targetsalary" },
+            { 
+                "data": "targetsalary",
+                render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
+            },
             {
                 data: null,
                 orderable: false,

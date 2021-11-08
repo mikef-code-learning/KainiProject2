@@ -1,35 +1,40 @@
+<nav class="navbar navbar-dark bg-primary" id="navbar-container">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1" id="navbarHeader">Welcome!</span>
+    </div>
+</nav>
+<hr>
+
 <div class = "container-sm " id = "main-body">
-    <br>
-    <h1>Welcome!</h1>
-    <br>
-    <hr>
-    <form class="userlogin">
-        <div class="row mb-3">
-            <div class="col-sm-12">
-                <label for="emailaddress" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="emailaddress">
+    <div class = "login-container">
+        <form class="userlogin">
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <label for="emailaddress" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="emailaddress">
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-12">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2">
-                <a href="#" class="create-account" id="createAccountModalLink">Create Account</a>
+            <div class="row mb-3">
+                <div class="col-sm-2">
+                    <a href="#" class="create-account" id="createAccountModalLink">Create Account</a>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#" class="reset-password">Reset Password</a>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <a href="#" class="reset-password">Reset Password</a>
+            <div class="row mb-3">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" id="accountlogin">Login</button>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-4">
-                <button class="btn btn-primary" id="accountlogin">Login</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <div class="modal fade" id="createAccountModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newjobmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
