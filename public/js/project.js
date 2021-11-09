@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     function enableJobInputs() {
         for (var i = 0; i < jobInputs.length; i++) {
-            jobInputs[i].attr('disabled', false);
+            $(jobInputs[i]).attr('disabled', false);
         }
         $("#status").attr('disabled', false);
         $("#closebutton").attr('disabled', false);

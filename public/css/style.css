@@ -1,9 +1,19 @@
 body{
-    background-color: whitesmoke;
+    background-image: url(/img/email-pattern.png);
 }
 
-.main-body{
-    background-color: whitesmoke;
+#main-body{
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    background-color: white;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-right-width: 1px;
+    border-right-style: solid;
 }
 
 hr{
@@ -20,12 +30,21 @@ hr{
 }
 
 #navbarHeader {
-    font-size: 25px;
-    margin-left: 7%;
+    font-size: 50px;
+    padding-left: 15%;
     font-family:Georgia;
+    color: #f4f4f4;
 }
 
 #logoutbtn{
-    margin-right: 7%;
-    color:whitesmoke;
+    margin-right: 290px;
+}
+
+#navbar-container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#newjobmodalbtn{
+    font-size: 25px;
 }
